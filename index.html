@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistemi di Equazioni Lineari - Hub Didattico</title>
+  
+  <link rel="stylesheet" href="css/style.css">
+  
+  <!-- KaTeX per formule matematiche -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+</head>
+<body>
+
+  <div class="wrapper-hub">
+    <!-- Badge -->
+    <div class="badge">📐 Quaderno di Studio & Verifica — Algebra Lineare</div>
+    
+    <!-- Titolo Principale -->
+    <h1 class="main-title">Sistemi di Equazioni Lineari</h1>
+    
+    <!-- Sottotitolo -->
+    <p class="subtitle">
+      Dall'interpretazione geometrica come intersezione di rette nel piano ai quattro metodi di risoluzione algebrica, 
+      fino alla formulazione matriciale $A\mathbf{x} = \mathbf{b}$ e ai problemi tratti dalla realtà.
+    </p>
+
+    <!-- Griglia delle 5 Card Tematiche -->
+    <div class="grid-hub">
+      
+      <!-- Card 1: Definizione & Geometria -->
+      <a href="definizione.html" class="card-link card-geo">
+        <div class="card-icon">🧠</div>
+        <h2>Definizione & Geometria</h2>
+        <p>
+          Concetto di sistema lineare, classificazione (determinato, impossibile, indeterminato) 
+          e interpretazione grafica con simulatore di rette su canvas.
+        </p>
+        <div class="btn btn-geo">
+          Esplora la Geometria ➔
+        </div>
+      </a>
+
+      <!-- Card 2: Metodi Risolutivi -->
+      <a href="metodi.html" class="card-link card-metodi">
+        <div class="card-icon">⚙️</div>
+        <h2>I 4 Metodi di Risoluzione</h2>
+        <p>
+          Guida pratica passo-passo con esempi svolti: Sostituzione, Confronto, Riduzione 
+          e Regola di Cramer con cenni ai sistemi $3 \times 3$.
+        </p>
+        <div class="btn btn-metodi">
+          Impara i Metodi ➔
+        </div>
+      </a>
+
+      <!-- Card 3: Equazione Matriciale -->
+      <a href="matrici.html" class="card-link card-matrici">
+        <div class="card-icon">🔢</div>
+        <h2>Il Sistema come Matrice</h2>
+        <p>
+          Rappresentazione compatta $A\mathbf{x} = \mathbf{b}$, calcolo dell'inversa $\mathbf{x} = A^{-1}\mathbf{b}$, 
+          rango e Teorema di Rouché-Capelli per sistemi $n \times n$.
+        </p>
+        <div class="btn btn-matrici">
+          Approccio Matriciale ➔
+        </div>
+      </a>
+
+      <!-- Card 4: Casi Reali -->
+      <a href="esempi-reali.html" class="card-link card-reali">
+        <div class="card-icon">🌍</div>
+        <h2>Problemi & Casi Reali</h2>
+        <p>
+          Come modellizzare la realtà con i sistemi lineari: problemi economici (break-even), 
+          cinematica fisica (incontro veicoli), chimica e geometria.
+        </p>
+        <div class="btn btn-reali">
+          Vedi i Casi Reali ➔
+        </div>
+      </a>
+
+      <!-- Card 5: Quiz -->
+      <a href="quiz.html" class="card-link card-quiz">
+        <div class="card-icon">📝</div>
+        <h2>Quiz Interattivo</h2>
+        <p>
+          10 quesiti mirati per verificare la tua preparazione con spiegazioni matematiche 
+          dettagliate per ogni quesito e calcolo del punteggio.
+        </p>
+        <div class="btn btn-quiz">
+          Mettiti alla Prova ➔
+        </div>
+      </a>
+
+    </div>
+
+    <!-- Risolutore Istantaneo 2x2 nell'Hub -->
+    <div class="solver-widget">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+        <strong style="color: #fff; font-size: 15px; display: flex; align-items: center; gap: 6px;">
+          <span>⚡</span> Risolutore Istantaneo di Sistemi 2×2
+        </strong>
+        <span class="badge" style="margin: 0; padding: 3px 10px; font-size: 11px;">Calcolatore Live</span>
+      </div>
+
+      <p style="font-size: 13.5px; color: var(--text-muted); margin-bottom: 14px;">
+        Modifica i coefficienti del sistema in forma normale:
+        $$\begin{cases} a_1 x + b_1 y = c_1 \\ a_2 x + b_2 y = c_2 \end{cases}$$
+      </p>
+
+      <!-- Equazione 1 -->
+      <div class="solver-eq-row">
+        <span style="color: var(--accent-geo-light); font-weight: 700; width: 30px;">r₁:</span>
+        <input type="number" id="a1Input" class="solver-input" value="2" step="0.5">
+        <span style="color: #fff; font-weight: 600;">x + </span>
+        <input type="number" id="b1Input" class="solver-input" value="1" step="0.5">
+        <span style="color: #fff; font-weight: 600;">y = </span>
+        <input type="number" id="c1Input" class="solver-input" value="5" step="0.5">
+      </div>
+
+      <!-- Equazione 2 -->
+      <div class="solver-eq-row">
+        <span style="color: var(--accent-quiz-light); font-weight: 700; width: 30px;">r₂:</span>
+        <input type="number" id="a2Input" class="solver-input" value="1" step="0.5">
+        <span style="color: #fff; font-weight: 600;">x - </span>
+        <input type="number" id="b2Input" class="solver-input" value="-1" step="0.5">
+        <span style="color: #fff; font-weight: 600;">y = </span>
+        <input type="number" id="c2Input" class="solver-input" value="1" step="0.5">
+      </div>
+
+      <!-- Preset Rapidi Centrati -->
+      <div class="solver-preset-wrap">
+        <button class="preset-btn" onclick="setSolverPreset(2, 1, 5, 1, -1, 1)">Esempio Determinato (2, 1)</button>
+        <button class="preset-btn" onclick="setSolverPreset(2, -4, 6, 1, -2, 5)">Esempio Impossibile (Parallele)</button>
+        <button class="preset-btn" onclick="setSolverPreset(1, 2, 4, 2, 4, 8)">Esempio Indeterminato (Coincidenti)</button>
+      </div>
+
+      <!-- Risultato Calcolato in Diretta -->
+      <div class="solver-result-badge" id="hubSolverResult">
+        <!-- Calcolato da js/main.js -->
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      Tutti i moduli sono collegati e navigabili in locale senza bisogno di connessione internet.<br>
+      Contenuti ispirati a <em>YouMath</em>, <em>Wikipedia</em> e manuali <em>Zanichelli</em>.
+    </footer>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

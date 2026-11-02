@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Il Sistema Lineare come Equazione tra Matrici Ax = b</title>
+  
+  <link rel="stylesheet" href="css/style.css">
+  
+  <!-- KaTeX -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+</head>
+<body>
+
+  <!-- ================= TOP NAV HEADER ================= -->
+  <header class="site-nav-header">
+    <a href="index.html" class="home-btn">
+      <span>←</span> Torna all'Hub
+    </a>
+
+    <div class="header-nav-pills">
+      <a href="definizione.html" class="nav-pill">🧠 Definizione & Geometria</a>
+      <a href="metodi.html" class="nav-pill">⚙️ Metodi Risolutivi</a>
+      <a href="matrici.html" class="nav-pill active active-matrici">🔢 Equazione Matriciale</a>
+      <a href="esempi-reali.html" class="nav-pill">🌍 Casi Reali</a>
+      <a href="quiz.html" class="nav-pill">📝 Quiz</a>
+    </div>
+  </header>
+
+  <!-- ================= CONTENUTI PRINCIPALI ================= -->
+  <main class="wrapper">
+    
+    <div style="text-align: center; margin-bottom: 32px;">
+      <div class="badge badge-purple">🔢 Modulo 03 — Approccio Matriciale</div>
+      <h1 class="main-title">Il Sistema come Equazione tra Matrici</h1>
+      <p class="subtitle">
+        Come la notazione vettoriale $A\mathbf{x} = \mathbf{b}$, l'algebra lineare moderna, 
+        l'inversione di matrice e il Teorema di Rouché-Capelli generalizzano la risoluzione di qualsiasi sistema.
+      </p>
+    </div>
+
+    <!-- 1. DALLA FORMA SCALARE A QUELLA MATRICIALE -->
+    <article class="content-card purple">
+      <h2>1. La Notazione Compatta $A\mathbf{x} = \mathbf{b}$</h2>
+      <p>
+        Consideriamo il classico sistema lineare di due equazioni in due incognite:
+      </p>
+
+      <div class="formula-box">
+        $$\begin{cases} a_{11} x_1 + a_{12} x_2 = b_1 \\ a_{21} x_1 + a_{22} x_2 = b_2 \end{cases}$$
+      </div>
+
+      <p>
+        Grazie al <strong>prodotto righe per colonne</strong> tra matrici, questo sistema di equazioni può essere condensato in un'unica 
+        elegante equazione matriciale:
+      </p>
+
+      <div class="formula-box">
+        $$\begin{pmatrix} a_{11} & a_{12} \\ a_{21} & a_{22} \end{pmatrix} \begin{pmatrix} x_1 \\ x_2 \end{pmatrix} = \begin{pmatrix} b_1 \\ b_2 \end{pmatrix} \iff A \mathbf{x} = \mathbf{b}$$
+      </div>
+
+      <div class="grid-3" style="margin-top: 18px;">
+        <div class="sub-card">
+          <strong style="color: var(--accent-matrici-light);">Matrice dei Coefficienti ($A$)</strong>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">
+            Matrice $2 \times 2$ (detta anche <em>incompleta</em>) formata dai coefficienti numerici delle variabili.
+          </p>
+        </div>
+        <div class="sub-card">
+          <strong style="color: #38bdf8;">Vettore Incognite ($\mathbf{x}$)</strong>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">
+            Vettore colonna $2 \times 1$ contenente le incognite ordinate $\begin{pmatrix} x_1 \\ x_2 \end{pmatrix}$.
+          </p>
+        </div>
+        <div class="sub-card">
+          <strong style="color: #f472b6;">Vettore Termini Noti ($\mathbf{b}$)</strong>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">
+            Vettore colonna $2 \times 1$ con i termini noti $\begin{pmatrix} b_1 \\ b_2 \end{pmatrix}$.
+          </p>
+        </div>
+      </div>
+
+      <div class="callout callout-info" style="margin-top: 18px;">
+        <div class="callout-title">Matrice Completa del Sistema: $(A \,|\, \mathbf{b})$</div>
+        <p>
+          Si ottiene accostando a destra della matrice $A$ la colonna dei termini noti:
+          $$(A \,|\, \mathbf{b}) = \begin{pmatrix} a_{11} & a_{12} & \big|\; b_1 \\ a_{21} & a_{22} & \big|\; b_2 \end{pmatrix}$$
+          Questa matrice racchiude <strong>tutte le informazioni</strong> numeriche del sistema!
+        </p>
+      </div>
+    </article>
+
+    <!-- 2. RISOLUZIONE CON LA MATRICE INVERSA -->
+    <article class="content-card purple">
+      <h2>2. Risoluzione mediante la Matrice Inversa</h2>
+      <p>
+        Nelle equazioni numeriche elementari di primo grado con un numero reale, l'equazione $a \cdot x = b$ (con $a \neq 0$) 
+        si risolve moltiplicando per il reciproco: $x = a^{-1} \cdot b = \frac{b}{a}$.
+      </p>
+      <p>
+        Nell'algebra delle matrici avviene esattamente la stessa cosa! Se la matrice $A$ è <strong>quadrata</strong> e il suo determinante 
+        è non nullo ($\det(A) \neq 0$), allora $A$ è <em>invertibile</em> ed esiste la matrice inversa $A^{-1}$ tale che $A^{-1} A = I$ (matrice identità).
+      </p>
+
+      <div class="formula-box">
+        $$A \mathbf{x} = \mathbf{b} \implies A^{-1}(A \mathbf{x}) = A^{-1} \mathbf{b} \implies I \mathbf{x} = A^{-1} \mathbf{b} \implies \mathbf{x} = A^{-1} \mathbf{b}$$
+      </div>
+
+      <div class="sub-card" style="margin-block: 16px;">
+        <strong style="color: var(--accent-matrici-light);">Formula Chiusa per l'Inversa di una Matrice 2×2:</strong>
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 8px;">
+          Data la matrice generica $A = \begin{pmatrix} a & b \\ c & d \end{pmatrix}$, se $\det(A) = ad - bc \neq 0$, la sua inversa si calcola scambiando gli elementi della diagonale principale e cambiando di segno quelli della secondaria:
+        </p>
+        <div class="formula-box">
+          $$A^{-1} = \frac{1}{ad - bc} \begin{pmatrix} d & -b \\ -c & a \end{pmatrix}$$
+        </div>
+      </div>
+
+      <div class="sub-card">
+        <strong style="color: var(--accent-matrici-light);">Esempio Numerico Guidato:</strong>
+        <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 6px;">
+          Risolviamo $\begin{pmatrix} 3 & 1 \\ 2 & 1 \end{pmatrix} \begin{pmatrix} x \\ y \end{pmatrix} = \begin{pmatrix} 5 \\ 4 \end{pmatrix}$.
+        </p>
+        <ol style="margin-left: 20px; font-size: 0.88rem; color: var(--text-muted); display: flex; flex-direction: column; gap: 4px;">
+          <li>Calcola il determinante: $\det(A) = (3)(1) - (1)(2) = 3 - 2 = 1 \neq 0$.</li>
+          <li>Calcola l'inversa: $A^{-1} = \frac{1}{1} \begin{pmatrix} 1 & -1 \\ -2 & 3 \end{pmatrix} = \begin{pmatrix} 1 & -1 \\ -2 & 3 \end{pmatrix}$.</li>
+          <li>Moltiplica per $\mathbf{b}$:
+            $$\begin{pmatrix} x \\ y \end{pmatrix} = \begin{pmatrix} 1 & -1 \\ -2 & 3 \end{pmatrix} \begin{pmatrix} 5 \\ 4 \end{pmatrix} = \begin{pmatrix} 1(5) + (-1)(4) \\ -2(5) + 3(4) \end{pmatrix} = \begin{pmatrix} 5 - 4 \\ -10 + 12 \end{pmatrix} = \begin{pmatrix} 1 \\ 2 \end{pmatrix}$$
+          </li>
+        </ol>
+        <div style="margin-top: 8px; color: #34d399; font-weight: 700; font-size: 0.92rem;">
+          Soluzione: x = 1, y = 2
+        </div>
+      </div>
+    </article>
+
+    <!-- 3. TEOREMA DI ROUCHÉ-CAPELLI -->
+    <article class="content-card purple">
+      <h2>3. Il Teorema di Rouché-Capelli</h2>
+      <p>
+        È il teorema fondamentale per stabilire l'esistenza e il numero di soluzioni di un sistema lineare qualsiasi di $m$ equazioni in $n$ incognite.
+        Si basa sul concetto di <strong>rango</strong> (o caratteristica) di una matrice, indicato con $\text{rk}(A)$, ovvero il massimo numero 
+        di righe (o colonne) linearmente indipendenti.
+      </p>
+
+      <div class="callout callout-info">
+        <div class="callout-title">Teorema di Rouché-Capelli:</div>
+        <p style="font-size: 0.95rem;">
+          Un sistema lineare $A\mathbf{x} = \mathbf{b}$ è <strong>compatibile</strong> (ammette almeno una soluzione) se e solo se il rango della matrice incompleta coincide con il rango della matrice completa:
+          $$\text{rk}(A) = \text{rk}(A \,|\, \mathbf{b})$$
+        </p>
+      </div>
+
+      <div class="table-responsive">
+        <table class="math-table">
+          <thead>
+            <tr>
+              <th>Condizione sui Ranghi</th>
+              <th>Numero di Soluzioni</th>
+              <th>Classificazione del Sistema</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>$\text{rk}(A) < \text{rk}(A \,|\, \mathbf{b})$</td>
+              <td><strong>Nessuna soluzione</strong> ($0$)</td>
+              <td><span style="color: #f87171; font-weight: 700;">IMPOSSIBILE</span></td>
+            </tr>
+            <tr>
+              <td>$\text{rk}(A) = \text{rk}(A \,|\, \mathbf{b}) = n$ ($n$ incognite)</td>
+              <td><strong>Un'unica soluzione</strong> ($1$)</td>
+              <td><span style="color: #34d399; font-weight: 700;">DETERMINATO</span></td>
+            </tr>
+            <tr>
+              <td>$\text{rk}(A) = \text{rk}(A \,|\, \mathbf{b}) = k < n$</td>
+              <td><strong>Infinite soluzioni</strong> ($\infty^{n - k}$)</td>
+              <td><span style="color: #fbbf24; font-weight: 700;">INDETERMINATO</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </article>
+
+    <!-- 4. PERCHÉ LE MATRICI SONO OVUNQUE? -->
+    <article class="content-card purple">
+      <h2>4. Applicazioni nel Calcolo Moderno e nell'Intelligenza Artificiale</h2>
+      <p>
+        I sistemi di equazioni lineari matriciali non sono solo teoria astratta: sono il "motore invisibile" della tecnologia moderna:
+      </p>
+
+      <div class="grid-3">
+        <div class="sub-card">
+          <strong style="color: #38bdf8;">🎮 Grafica 3D & Videogiochi</strong>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">
+            Le rotazioni, le traslazioni e la prospettiva degli oggetti tridimensionali sullo schermo sono calcolate tramite prodotti di matrici $4 \times 4$.
+          </p>
+        </div>
+        <div class="sub-card">
+          <strong style="color: #34d399;">🤖 Reti Neurali & AI</strong>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">
+            Ogni strato di una rete neurale trasforma i dati tramite l'operazione lineare $\mathbf{y} = W\mathbf{x} + \mathbf{b}$, elaborata in parallelo dalle GPU.
+          </p>
+        </div>
+        <div class="sub-card">
+          <strong style="color: #fbbf24;">🔍 Google PageRank</strong>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">
+            L'algoritmo originario che ordina i miliardi di pagine web risolve un gigantesco sistema lineare (autovettori di matrici stocastiche).
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <!-- Navigazione a Fondo Pagina -->
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; margin-top: 36px;">
+      <a href="metodi.html" class="home-btn">← 2. I Metodi Risolutivi</a>
+      <a href="esempi-reali.html" class="btn btn-reali" style="width: auto; padding: 12px 24px;">
+        Passa a 4. Problemi & Casi Reali ➔
+      </a>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      Tutti i moduli sono collegati e navigabili in locale.<br>
+      Contenuti ispirati a <em>YouMath</em> e <em>Wikipedia</em>.
+    </footer>
+
+  </main>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

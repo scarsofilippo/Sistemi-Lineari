@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Problemi Reali Modellizzati con i Sistemi Lineari</title>
+  
+  <link rel="stylesheet" href="css/style.css">
+  
+  <!-- KaTeX -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+</head>
+<body>
+
+  <!-- ================= TOP NAV HEADER ================= -->
+  <header class="site-nav-header">
+    <a href="index.html" class="home-btn">
+      <span>←</span> Torna all'Hub
+    </a>
+
+    <div class="header-nav-pills">
+      <a href="definizione.html" class="nav-pill">🧠 Definizione & Geometria</a>
+      <a href="metodi.html" class="nav-pill">⚙️ Metodi Risolutivi</a>
+      <a href="matrici.html" class="nav-pill">🔢 Equazione Matriciale</a>
+      <a href="esempi-reali.html" class="nav-pill active active-reali">🌍 Casi Reali</a>
+      <a href="quiz.html" class="nav-pill">📝 Quiz</a>
+    </div>
+  </header>
+
+  <!-- ================= CONTENUTI PRINCIPALI ================= -->
+  <main class="wrapper">
+    
+    <div style="text-align: center; margin-bottom: 32px;">
+      <div class="badge badge-amber">🌍 Modulo 04 — Problemi Applicativi</div>
+      <h1 class="main-title">Problemi Reali Modellizzati con i Sistemi</h1>
+      <p class="subtitle">
+        I sistemi lineari sono uno strumento formidabile per prendere decisioni ottimali, 
+        analizzare il mercato, prevedere moti fisici e risolvere problemi di laboratorio.
+      </p>
+    </div>
+
+    <!-- STRATEGIA IN 4 PASSI -->
+    <div class="callout callout-info" style="margin-bottom: 24px;">
+      <div class="callout-title">📋 La Strategia in 4 Fasi per Risolvere un Problema:</div>
+      <ol style="margin-left: 20px; font-size: 0.9rem; line-height: 1.6;">
+        <li><strong>Scelta delle incognite:</strong> leggi attentamente il testo e associa lettere chiare ($x$ e $y$) alle quantità sconosciute richieste.</li>
+        <li><strong>Traduzione in equazioni:</strong> trasforma ogni vincolo o relazione fornita dal testo in un'uguaglianza algebrica di primo grado.</li>
+        <li><strong>Risoluzione del sistema:</strong> applica il metodo più comodo (sostituzione, riduzione o Cramer).</li>
+        <li><strong>Verifica e interpretazione:</strong> controlla se i numeri trovati hanno senso fisico (ad esempio: tempi, distanze o prezzi non possono essere negativi!).</li>
+      </ol>
+    </div>
+
+    <!-- CASO 1: ECONOMIA E CONFRONTO TARIFFE -->
+    <article class="content-card amber">
+      <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+        <span class="badge badge-amber" style="margin: 0;">CASO 1: ECONOMIA</span>
+        <h2>Scelta tra Tariffe di Noleggio (Break-Even Point)</h2>
+      </div>
+      <p>
+        <strong>Problema:</strong> Un'associazione deve noleggiare un furgone per un viaggio e confronta due offerte:
+        <br>• <strong>Compagnia A:</strong> €30 fissi al giorno + €0.20 per ogni km percorso.
+        <br>• <strong>Compagnia B:</strong> €10 fissi al giorno + €0.30 per ogni km percorso.
+        <br><em>Per quale percorrenza chilometrica le due offerte costano uguale? Quale conviene scegliere?</em>
+      </p>
+
+      <div class="sub-card">
+        <strong style="color: var(--accent-reali-light);">Modellizzazione con il Sistema:</strong>
+        <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 8px;">
+          Sia $k$ il numero di chilometri percorsi e $C$ il costo totale in euro:
+        </p>
+        <div class="formula-box">
+          $$\begin{cases} C = 30 + 0.20k \\ C = 10 + 0.30k \end{cases}$$
+        </div>
+        <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 8px;">
+          Applicando il <strong>metodo del confronto</strong> ($C = C$):
+          $$30 + 0.20k = 10 + 0.30k \implies 20 = 0.10k \implies k = \frac{20}{0.10} = 200\text{ km}$$
+          Il costo comune corrispondente è: $C = 30 + 0.20(200) = 30 + 40 = 70\text{ euro}$.
+        </p>
+        <div class="callout callout-success" style="margin: 8px 0 0 0;">
+          <div class="callout-title">💡 Conclusioni Pratiche:</div>
+          <p style="font-size: 0.85rem; margin: 0;">
+            • Per percorsi <strong>inferiori a 200 km</strong>: conviene la <strong>Compagnia B</strong> (la tariffa fissa più bassa incide di più).<br>
+            • A esattamente <strong>200 km</strong>: il costo è identico (€70).<br>
+            • Per percorsi <strong>superiori a 200 km</strong>: conviene la <strong>Compagnia A</strong> (il costo al km è più vantaggioso).
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <!-- CASO 2: FISICA E CINEMATICA -->
+    <article class="content-card amber">
+      <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+        <span class="badge badge-amber" style="margin: 0;">CASO 2: FISICA</span>
+        <h2>Incontro tra Due Veicoli in Movimento</h2>
+      </div>
+      <p>
+        <strong>Problema:</strong> Due città distano $90\text{ km}$. Una bicicletta parte dalla città A verso B alla velocità costante di $20\text{ km/h}$. 
+        Nello stesso istante, uno scooter parte da B verso A alla velocità costante di $40\text{ km/h}$.
+        <br><em>Dopo quanto tempo e a quale distanza dalla città A si incontrano?</em>
+      </p>
+
+      <div class="sub-card">
+        <strong style="color: var(--accent-reali-light);">Modellizzazione Cinematica:</strong>
+        <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 8px;">
+          Sia $t$ il tempo trascorso (in ore) e $s$ la posizione lungo la strada (in km da A):
+          <br>• Moto della bicicletta: $s = 0 + 20t$
+          <br>• Moto dello scooter: $s = 90 - 40t$
+        </p>
+        <div class="formula-box">
+          $$\begin{cases} s = 20t \\ s = 90 - 40t \end{cases}$$
+        </div>
+        <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 8px;">
+          Eguagliando le posizioni:
+          $$20t = 90 - 40t \implies 60t = 90 \implies t = \frac{90}{60} = 1.5\text{ ore (1 ora e 30 minuti)}$$
+          Calcoliamo la posizione di incontro:
+          $$s = 20(1.5) = 30\text{ km}$$
+        </p>
+        <div style="color: #34d399; font-weight: 700; font-size: 0.95rem;">
+          I due veicoli si incrociano dopo 1h 30min a 30 km dalla città A.
+        </div>
+      </div>
+    </article>
+
+    <!-- CASO 3: CHIMICA DELLE MISCELE -->
+    <article class="content-card amber">
+      <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+        <span class="badge badge-amber" style="margin: 0;">CASO 3: CHIMICA</span>
+        <h2>Preparazione di una Soluzione Salina</h2>
+      </div>
+      <p>
+        <strong>Problema:</strong> In un laboratorio chimico si hanno a disposizione due soluzioni saline: una a bassa concentrazione al $10\%$ 
+        e una più concentrata al $40\%$. Si desidera ottenere $60\text{ litri}$ di una nuova soluzione con concentrazione finale al $25\%$.
+        <br><em>Quanti litri di ciascuna soluzione occorre miscelare?</em>
+      </p>
+
+      <div class="sub-card">
+        <strong style="color: var(--accent-reali-light);">Modellizzazione con il Sistema:</strong>
+        <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 8px;">
+          Siano $x$ i litri della soluzione al 10% e $y$ i litri della soluzione al 40%:
+          <br>1. Bilancio dei volumi totali: $x + y = 60$
+          <br>2. Bilancio del soluto puro: $0.10x + 0.40y = 0.25 \times 60 = 15$
+        </p>
+        <div class="formula-box">
+          $$\begin{cases} x + y = 60 \\ 0.10x + 0.40y = 15 \end{cases}$$
+        </div>
+        <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 8px;">
+          Moltiplichiamo la seconda equazione per $10$: $x + 4y = 150$.
+          Sottraendo membro a membro la prima ($x + y = 60$):
+          $$(x - x) + (4y - y) = 150 - 60 \implies 3y = 90 \implies y = 30\text{ litri}$$
+          Dalla prima equazione: $x = 60 - 30 = 30\text{ litri}$.
+        </p>
+        <div style="color: #34d399; font-weight: 700; font-size: 0.95rem;">
+          Occorre mescolare esattamente 30 litri della soluzione al 10% e 30 litri di quella al 40%.
+        </div>
+      </div>
+    </article>
+
+    <!-- Navigazione a Fondo Pagina -->
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; margin-top: 36px;">
+      <a href="matrici.html" class="home-btn">← 3. Equazione Matriciale</a>
+      <a href="quiz.html" class="btn btn-quiz" style="width: auto; padding: 12px 24px;">
+        Vai a 5. Mettiti alla Prova: Quiz ➔
+      </a>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      Tutti i moduli sono collegati e navigabili in locale.<br>
+      Contenuti ispirati a <em>YouMath</em> e <em>Zanichelli</em>.
+    </footer>
+
+  </main>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

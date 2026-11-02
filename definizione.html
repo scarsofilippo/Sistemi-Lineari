@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Definizione e Interpretazione Grafica dei Sistemi Lineari</title>
+  
+  <link rel="stylesheet" href="css/style.css">
+  
+  <!-- KaTeX -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+</head>
+<body>
+
+  <!-- ================= TOP NAV HEADER ================= -->
+  <header class="site-nav-header">
+    <a href="index.html" class="home-btn">
+      <span>←</span> Torna all'Hub
+    </a>
+
+    <div class="header-nav-pills">
+      <a href="definizione.html" class="nav-pill active active-geo">🧠 Definizione & Geometria</a>
+      <a href="metodi.html" class="nav-pill">⚙️ Metodi Risolutivi</a>
+      <a href="matrici.html" class="nav-pill">🔢 Equazione Matriciale</a>
+      <a href="esempi-reali.html" class="nav-pill">🌍 Casi Reali</a>
+      <a href="quiz.html" class="nav-pill">📝 Quiz</a>
+    </div>
+  </header>
+
+  <!-- ================= CONTENUTI PRINCIPALI ================= -->
+  <main class="wrapper">
+    
+    <div style="text-align: center; margin-bottom: 32px;">
+      <div class="badge">🧠 Modulo 01 — Fondamenti & Geometria</div>
+      <h1 class="main-title">Definizione e Interpretazione Grafica</h1>
+      <p class="subtitle">
+        Cosa significa risolvere un sistema? Come si collegano le soluzioni algebriche 
+        all'intersezione di rette nel piano cartesiano?
+      </p>
+    </div>
+
+    <!-- SIMULATORE GRAFICO SU CANVAS -->
+    <div class="graph-explorer-container">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 8px;">
+        <div>
+          <h2 style="font-size: 1.25rem; font-weight: 700; color: #fff;">
+            📈 Simulatore Geometrico Interattivo (2 Rette nel Piano)
+          </h2>
+          <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0;">
+            Muovi i cursori dei coefficienti per vedere come cambia la posizione delle due rette e il loro punto di intersezione.
+          </p>
+        </div>
+        <span class="badge" style="margin: 0; padding: 4px 12px; font-size: 11px;">Canvas Interattivo</span>
+      </div>
+
+      <div class="grid-2" style="align-items: center; margin-bottom: 16px;">
+        <!-- Canvas -->
+        <div class="graph-canvas-wrap">
+          <canvas id="linearCanvas"></canvas>
+        </div>
+
+        <!-- Controlli Slider -->
+        <div>
+          <!-- Retta 1 -->
+          <div style="background: #27354a; padding: 14px; border-radius: 12px; margin-bottom: 12px; border-left: 4px solid var(--accent-geo-light);">
+            <strong style="color: var(--accent-geo-light); font-size: 0.95rem; display: block; margin-bottom: 8px;">
+              Retta r₁: a₁x + b₁y = c₁
+            </strong>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+              <div>
+                <label style="font-size: 0.75rem; color: var(--text-muted);">a₁: <span id="badge_a1">2</span></label>
+                <input type="range" id="slider_a1" min="-5" max="5" step="0.5" value="2">
+              </div>
+              <div>
+                <label style="font-size: 0.75rem; color: var(--text-muted);">b₁: <span id="badge_b1">1</span></label>
+                <input type="range" id="slider_b1" min="-5" max="5" step="0.5" value="1">
+              </div>
+              <div>
+                <label style="font-size: 0.75rem; color: var(--text-muted);">c₁: <span id="badge_c1">4</span></label>
+                <input type="range" id="slider_c1" min="-6" max="6" step="0.5" value="4">
+              </div>
+            </div>
+          </div>
+
+          <!-- Retta 2 -->
+          <div style="background: #27354a; padding: 14px; border-radius: 12px; margin-bottom: 14px; border-left: 4px solid var(--accent-quiz-light);">
+            <strong style="color: var(--accent-quiz-light); font-size: 0.95rem; display: block; margin-bottom: 8px;">
+              Retta r₂: a₂x + b₂y = c₂
+            </strong>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+              <div>
+                <label style="font-size: 0.75rem; color: var(--text-muted);">a₂: <span id="badge_a2">1</span></label>
+                <input type="range" id="slider_a2" min="-5" max="5" step="0.5" value="1">
+              </div>
+              <div>
+                <label style="font-size: 0.75rem; color: var(--text-muted);">b₂: <span id="badge_b2">-1</span></label>
+                <input type="range" id="slider_b2" min="-5" max="5" step="0.5" value="-1">
+              </div>
+              <div>
+                <label style="font-size: 0.75rem; color: var(--text-muted);">c₂: <span id="badge_c2">-1</span></label>
+                <input type="range" id="slider_c2" min="-6" max="6" step="0.5" value="-1">
+              </div>
+            </div>
+          </div>
+
+          <!-- Status Box -->
+          <div style="background: #151e2e; padding: 14px; border-radius: 10px; border: 1px solid var(--card-border); font-size: 0.88rem;">
+            <div id="geoStatusText">Rette Incidenti: Sistema Determinato</div>
+            <div id="geoPointText" style="color: var(--text-muted); margin-top: 4px;">Punto di intersezione P(1.00, 2.00)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Preset Rapidi -->
+      <div class="solver-preset-wrap">
+        <button class="preset-btn" onclick="setSystemPreset(2, 1, 4, 1, -1, -1)">1. Incidenti (Soluzione unica)</button>
+        <button class="preset-btn" onclick="setSystemPreset(2, -1, 3, 2, -1, -2)">2. Parallele Distinte (Impossibile)</button>
+        <button class="preset-btn" onclick="setSystemPreset(1, -2, 2, 2, -4, 4)">3. Coincidenti (Indeterminato)</button>
+        <button class="preset-btn" onclick="setSystemPreset(1, -1, 0, 1, 1, 4)">4. Perpendicolari (m₁ · m₂ = -1)</button>
+      </div>
+    </div>
+
+    <!-- 1. DEFINIZIONE FORMALE -->
+    <article class="content-card">
+      <h2>1. Cos'è un Sistema di Equazioni Lineari?</h2>
+      <p>
+        Un'<strong>equazione lineare</strong> in due incognite è un'equazione di primo grado della forma:
+        $$ax + by = c$$
+        dove $a, b \in \mathbb{R}$ sono detti <em>coefficienti</em> delle incognite (non entrambi nulli) e $c \in \mathbb{R}$ è il <em>termine noto</em>.
+      </p>
+      <p>
+        Un <strong>sistema lineare di due equazioni in due incognite ($2 \times 2$)</strong> è un insieme di due equazioni di primo grado 
+        poste a sistema (racchiuse da una parentesi graffa) che devono essere <strong>verificate contemporaneamente</strong>:
+      </p>
+
+      <div class="formula-box">
+        $$\begin{cases} a_1 x + b_1 y = c_1 \\ a_2 x + b_2 y = c_2 \end{cases}$$
+      </div>
+
+      <div class="callout callout-info">
+        <div class="callout-title">🔑 Concetto di Soluzione e Grado del Sistema</div>
+        <p>
+          • <strong>Soluzione:</strong> è una coppia ordinata di numeri reali $(x_0, y_0)$ che, sostituita ad $x$ e ad $y$, 
+          rende vere contemporaneamente entrambe le uguaglianze numeriche.<br>
+          • <strong>Grado del sistema:</strong> è dato dal prodotto dei gradi delle singole equazioni. 
+          Poiché entrambe sono di 1° grado ($1 \times 1 = 1$), il sistema si dice <strong>lineare</strong> o di primo grado.
+        </p>
+      </div>
+    </article>
+
+    <!-- 2. CLASSIFICAZIONE -->
+    <article class="content-card">
+      <h2>2. Classificazione dei Sistemi Lineari</h2>
+      <p>
+        In base al numero di soluzioni ammesse, un sistema lineare $2 \times 2$ può essere di tre tipi:
+      </p>
+
+      <div class="grid-3">
+        <div class="sub-card">
+          <strong style="color: var(--accent-metodi-light);">1. DETERMINATO</strong>
+          <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 6px;">
+            Ammette <strong>una sola ed unica soluzione</strong> $(x_0, y_0)$.
+          </p>
+          <div style="font-size: 0.82rem; color: #fff; background: rgba(16, 185, 129, 0.15); padding: 4px 8px; border-radius: 4px;">
+            Condizione: $\frac{a_1}{a_2} \neq \frac{b_1}{b_2}$
+          </div>
+        </div>
+
+        <div class="sub-card">
+          <strong style="color: #f87171;">2. IMPOSSIBILE</strong>
+          <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 6px;">
+            Non ammette <strong>nessuna soluzione</strong> (insieme vuoto $\emptyset$).
+          </p>
+          <div style="font-size: 0.82rem; color: #fff; background: rgba(239, 68, 68, 0.15); padding: 4px 8px; border-radius: 4px;">
+            Condizione: $\frac{a_1}{a_2} = \frac{b_1}{b_2} \neq \frac{c_1}{c_2}$
+          </div>
+        </div>
+
+        <div class="sub-card">
+          <strong style="color: var(--accent-reali-light);">3. INDETERMINATO</strong>
+          <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 6px;">
+            Ammette <strong>infinite soluzioni</strong> ($\infty^1$ coppie).
+          </p>
+          <div style="font-size: 0.82rem; color: #fff; background: rgba(245, 158, 11, 0.15); padding: 4px 8px; border-radius: 4px;">
+            Condizione: $\frac{a_1}{a_2} = \frac{b_1}{b_2} = \frac{c_1}{c_2}$
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- 3. INTERPRETAZIONE GEOMETRICA -->
+    <article class="content-card">
+      <h2>3. Il Legame Profondo tra Algebra e Geometria Analitica</h2>
+      <p>
+        Ogni equazione lineare $ax + by = c$ può essere riscritta (se $b \neq 0$) in forma esplicita come l'equazione di una <strong>linea retta</strong> nel piano cartesiano:
+        $$y = -\frac{a}{b}x + \frac{c}{b} \implies y = mx + q$$
+        dove $m = -\frac{a}{b}$ è il coefficiente angolare (la pendenza) e $q = \frac{c}{b}$ è l'intercetta sull'asse delle ordinate.
+      </p>
+
+      <p style="font-weight: 600; color: #fff; margin-top: 14px;">
+        Risolvere un sistema $2 \times 2$ equivale geometricamente a trovare i <strong>punti di intersezione</strong> tra due rette $r_1$ e $r_2$:
+      </p>
+
+      <div class="table-responsive">
+        <table class="math-table">
+          <thead>
+            <tr>
+              <th>Tipologia Sistema</th>
+              <th>Posizione Reciproca delle Rette</th>
+              <th>Pendenze & Intercette</th>
+              <th>Punti Comuni</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong style="color: #34d399;">Determinato</strong></td>
+              <td><strong>Incidenti</strong> (si tagliano in un punto)</td>
+              <td>Pendenze diverse: $m_1 \neq m_2$</td>
+              <td>1 solo punto: $P(x_0, y_0)$</td>
+            </tr>
+            <tr>
+              <td><strong style="color: #f87171;">Impossibile</strong></td>
+              <td><strong>Parallele e distinte</strong></td>
+              <td>Stessa pendenza, diversa quota: $m_1 = m_2 \land q_1 \neq q_2$</td>
+              <td>0 punti in comune</td>
+            </tr>
+            <tr>
+              <td><strong style="color: #fbbf24;">Indeterminato</strong></td>
+              <td><strong>Coincidenti</strong> (sono la stessa retta)</td>
+              <td>Stessa pendenza e stessa quota: $m_1 = m_2 \land q_1 = q_2$</td>
+              <td>$\infty$ punti in comune</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </article>
+
+    <!-- Navigazione a Fondo Pagina -->
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; margin-top: 36px;">
+      <a href="index.html" class="home-btn">← Torna all'Hub</a>
+      <a href="metodi.html" class="btn btn-metodi" style="width: auto; padding: 12px 24px;">
+        Passa a 2. I Metodi di Risoluzione ➔
+      </a>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      Tutti i moduli sono collegati e navigabili in locale.<br>
+      Contenuti ispirati a <em>YouMath</em> e <em>Zanichelli</em>.
+    </footer>
+
+  </main>
+
+  <script src="js/main.js"></script>
+  <script src="js/linear-solver.js"></script>
+</body>
+</html>

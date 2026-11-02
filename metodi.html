@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>I 4 Metodi di Risoluzione dei Sistemi Lineari</title>
+  
+  <link rel="stylesheet" href="css/style.css">
+  
+  <!-- KaTeX -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+</head>
+<body>
+
+  <!-- ================= TOP NAV HEADER ================= -->
+  <header class="site-nav-header">
+    <a href="index.html" class="home-btn">
+      <span>←</span> Torna all'Hub
+    </a>
+
+    <div class="header-nav-pills">
+      <a href="definizione.html" class="nav-pill">🧠 Definizione & Geometria</a>
+      <a href="metodi.html" class="nav-pill active active-metodi">⚙️ Metodi Risolutivi</a>
+      <a href="matrici.html" class="nav-pill">🔢 Equazione Matriciale</a>
+      <a href="esempi-reali.html" class="nav-pill">🌍 Casi Reali</a>
+      <a href="quiz.html" class="nav-pill">📝 Quiz</a>
+    </div>
+  </header>
+
+  <!-- ================= CONTENUTI PRINCIPALI ================= -->
+  <main class="wrapper">
+    
+    <div style="text-align: center; margin-bottom: 32px;">
+      <div class="badge badge-green">⚙️ Modulo 02 — Metodi Algebrici</div>
+      <h1 class="main-title">I 4 Metodi di Risoluzione</h1>
+      <p class="subtitle">
+        Sostituzione, confronto, riduzione e regola di Cramer: quando conviene usare ciascun metodo, 
+        algoritmi passo-passo ed estensione ai sistemi di tre o più equazioni.
+      </p>
+    </div>
+
+    <!-- PANORAMICA SCELTA METODO -->
+    <div class="callout callout-info" style="margin-bottom: 24px;">
+      <div class="callout-title">💡 Quale metodo scegliere? La strategia vincente:</div>
+      <p style="font-size: 0.9rem; line-height: 1.6;">
+        Tutti i quattro metodi conducono allo <strong>stesso identico risultato</strong>! Tuttavia, la scelta del metodo più adatto consente di risparmiare calcoli ed evitare frazioni complesse:<br>
+        • Se un'incognita ha coefficiente $\mathbf{+1}$ o $\mathbf{-1}$ $\longrightarrow$ scegli la <strong>Sostituzione</strong>.<br>
+        • Se la stessa incognita è già esplicitata in entrambe le equazioni $\longrightarrow$ scegli il <strong>Confronto</strong>.<br>
+        • Se i coefficienti sono numeri qualsiasi e cerchi rapidità $\longrightarrow$ scegli la <strong>Riduzione</strong>.<br>
+        • Se vuoi applicare una formula diretta con determinanti o discutere un parametro $\longrightarrow$ scegli <strong>Cramer</strong>.
+      </p>
+    </div>
+
+    <!-- 1. SOSTITUZIONE -->
+    <article class="content-card green">
+      <h2>1. Metodo di Sostituzione</h2>
+      <p>
+        È il metodo più intuitivo: si ricava un'incognita da una delle equazioni e si <em>sostituisce</em> la sua espressione analitica 
+        nell'altra equazione, ottenendo un'equazione a una sola incognita.
+      </p>
+
+      <div class="sub-card" style="margin-bottom: 14px;">
+        <strong style="color: var(--accent-metodi-light);">Esempio Guidato Passo-Passo:</strong>
+        <p style="margin-bottom: 8px;">Risolviamo il sistema:</p>
+        <div class="formula-box">
+          $$\begin{cases} 2x + y = 7 \\ 3x - 2y = 7 \end{cases}$$
+        </div>
+        <ol style="margin-left: 20px; color: var(--text-muted); font-size: 0.9rem; display: flex; flex-direction: column; gap: 6px;">
+          <li><strong>Isola un'incognita:</strong> nella prima equazione il coefficiente di $y$ è $1$. Ricaviamo $y$:
+            $$y = 7 - 2x$$
+          </li>
+          <li><strong>Sostituisci nell'altra equazione:</strong> mettiamo $(7 - 2x)$ al posto di $y$ nella seconda:
+            $$3x - 2(7 - 2x) = 7 \implies 3x - 14 + 4x = 7 \implies 7x = 21 \implies x = 3$$
+          </li>
+          <li><strong>Calcola la seconda incognita:</strong> sostituisci $x = 3$ nell'espressione isolata:
+            $$y = 7 - 2(3) = 7 - 6 = 1$$
+          </li>
+        </ol>
+        <div style="margin-top: 10px; color: #34d399; font-weight: 700; font-size: 0.95rem;">
+          Soluzione unica: (x, y) = (3, 1)
+        </div>
+      </div>
+    </article>
+
+    <!-- 2. CONFRONTO -->
+    <article class="content-card green">
+      <h2>2. Metodo del Confronto</h2>
+      <p>
+        Si ricava la <strong>stessa incognita</strong> da entrambe le equazioni, e si eguagliano (confrontano) i due secondi membri:
+        se $y = A(x)$ e $y = B(x)$, allora $A(x) = B(x)$.
+      </p>
+
+      <div class="sub-card" style="margin-bottom: 14px;">
+        <strong style="color: var(--accent-metodi-light);">Esempio Guidato:</strong>
+        <div class="formula-box">
+          $$\begin{cases} y = 3x - 5 \\ y = -x + 3 \end{cases}$$
+        </div>
+        <ol style="margin-left: 20px; color: var(--text-muted); font-size: 0.9rem; display: flex; flex-direction: column; gap: 6px;">
+          <li><strong>Uguaglia i secondi membri:</strong>
+            $$3x - 5 = -x + 3 \implies 4x = 8 \implies x = 2$$
+          </li>
+          <li><strong>Calcola $y$:</strong> sostituendo $x = 2$ in una qualunque delle due equazioni:
+            $$y = 3(2) - 5 = 6 - 5 = 1$$
+          </li>
+        </ol>
+        <div style="margin-top: 10px; color: #34d399; font-weight: 700; font-size: 0.95rem;">
+          Soluzione: (x, y) = (2, 1)
+        </div>
+      </div>
+    </article>
+
+    <!-- 3. RIDUZIONE -->
+    <article class="content-card green">
+      <h2>3. Metodo di Riduzione (o Addizione e Sottrazione)</h2>
+      <p>
+        Si moltiplicano una o entrambe le equazioni per opportuni numeri diversi da zero, in modo che i coefficienti di una delle due incognite 
+        diventino <strong>opposti</strong> (o uguali). Sommando poi membro a membro le due equazioni, quell'incognita viene <em>eliminata</em>.
+      </p>
+
+      <div class="sub-card">
+        <strong style="color: var(--accent-metodi-light);">Esempio Guidato:</strong>
+        <div class="formula-box">
+          $$\begin{cases} 3x + 2y = 12 \\ 5x - 3y = 1 \end{cases}$$
+        </div>
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 8px;">
+          I coefficienti di $y$ sono $+2$ e $-3$. Moltiplichiamo la prima equazione per $3$ e la seconda per $2$, in modo che diventino $+6$ e $-6$:
+        </p>
+        <div class="formula-box">
+          $$\begin{cases} 9x + 6y = 36 \\ 10x - 6y = 2 \end{cases}$$
+        </div>
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 8px;">
+          Sommando membro a membro:
+          $$(9x + 10x) + (6y - 6y) = 36 + 2 \implies 19x = 38 \implies x = 2$$
+          Sostituendo $x = 2$ nella prima equazione: $3(2) + 2y = 12 \implies 6 + 2y = 12 \implies 2y = 6 \implies y = 3$.
+        </p>
+        <div style="color: #34d399; font-weight: 700; font-size: 0.95rem;">
+          Soluzione: (x, y) = (2, 3)
+        </div>
+      </div>
+    </article>
+
+    <!-- 4. REGOLA DI CRAMER -->
+    <article class="content-card green">
+      <h2>4. Regola di Cramer (Metodo dei Determinanti)</h2>
+      <p>
+        Fornisce una formula algebrica diretta basata sui <strong>determinanti</strong> delle matrici dei coefficienti.
+        Dato il sistema in forma normale:
+        $$\begin{cases} a_1 x + b_1 y = c_1 \\ a_2 x + b_2 y = c_2 \end{cases}$$
+      </p>
+
+      <p>Si definiscono i tre determinanti fondamentali $2 \times 2$:</p>
+
+      <div class="grid-3" style="margin-block: 16px;">
+        <div class="sub-card" style="text-align: center;">
+          <strong style="color: #38bdf8;">Determinante Principale</strong>
+          <div class="formula-box" style="margin: 8px 0;">
+            $$D = \begin{vmatrix} a_1 & b_1 \\ a_2 & b_2 \end{vmatrix} = a_1 b_2 - a_2 b_1$$
+          </div>
+          <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;">Coefficienti di $x$ e $y$</p>
+        </div>
+
+        <div class="sub-card" style="text-align: center;">
+          <strong style="color: #f472b6;">Determinante per x</strong>
+          <div class="formula-box" style="margin: 8px 0;">
+            $$D_x = \begin{vmatrix} c_1 & b_1 \\ c_2 & b_2 \end{vmatrix} = c_1 b_2 - c_2 b_1$$
+          </div>
+          <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;">Termini noti al posto di $x$</p>
+        </div>
+
+        <div class="sub-card" style="text-align: center;">
+          <strong style="color: #fbbf24;">Determinante per y</strong>
+          <div class="formula-box" style="margin: 8px 0;">
+            $$D_y = \begin{vmatrix} a_1 & c_1 \\ a_2 & c_2 \end{vmatrix} = a_1 c_2 - a_2 c_1$$
+          </div>
+          <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;">Termini noti al posto di $y$</p>
+        </div>
+      </div>
+
+      <div class="formula-box">
+        $$\text{Se } D \neq 0 \implies x = \frac{D_x}{D}, \qquad y = \frac{D_y}{D}$$
+      </div>
+
+      <div class="callout callout-warning">
+        <div class="callout-title">⚠️ Discussione del Sistema con la Regola di Cramer:</div>
+        <p>
+          • <strong>$D \neq 0$:</strong> Sistema <strong>DETERMINATO</strong> (1 soluzione unica).<br>
+          • <strong>$D = 0$ e ($D_x \neq 0 \lor D_y \neq 0$):</strong> Sistema <strong>IMPOSSIBILE</strong> (nessuna soluzione).<br>
+          • <strong>$D = 0$ e $D_x = 0$ e $D_y = 0$:</strong> Sistema <strong>INDETERMINATO</strong> (infinite soluzioni).
+        </p>
+      </div>
+    </article>
+
+    <!-- 5. ESTENSIONE 3X3 E NXN -->
+    <article class="content-card green">
+      <h2>5. Estensione ai Sistemi $3 \times 3$ e $n \times n$</h2>
+      <p>
+        Un sistema lineare di tre equazioni in tre incognite ($x, y, z$) si presenta nella forma:
+      </p>
+
+      <div class="formula-box">
+        $$\begin{cases} a_1 x + b_1 y + c_1 z = d_1 \\ a_2 x + b_2 y + c_2 z = d_2 \\ a_3 x + b_3 y + c_3 z = d_3 \end{cases}$$
+      </div>
+
+      <div class="grid-2" style="margin-top: 14px;">
+        <div class="sub-card">
+          <strong style="color: var(--accent-metodi-light);">Regola di Sarrus (Determinante 3×3)</strong>
+          <p style="font-size: 0.88rem; color: var(--text-muted);">
+            Per calcolare $D = \det(A)$ in una matrice $3 \times 3$ si affiancano le prime due colonne a destra della matrice e si sommano i prodotti delle 3 diagonali principali sottraendo i prodotti delle 3 diagonali secondarie.
+            Se $D \neq 0$:
+            $$x = \frac{D_x}{D}, \quad y = \frac{D_y}{D}, \quad z = \frac{D_z}{D}$$
+          </p>
+        </div>
+
+        <div class="sub-card">
+          <strong style="color: var(--accent-matrici-light);">Eliminazione Gaussiana per Sistemi $n \times n$</strong>
+          <p style="font-size: 0.88rem; color: var(--text-muted);">
+            Per sistemi con più di 3 equazioni, Cramer diventa computazionalmente oneroso. Si utilizza l'<strong>algoritmo di Gauss</strong> (metodo di riduzione generalizzato), che trasforma la matrice in una forma <em>a gradini</em> per risolvere il sistema a ritroso.
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <!-- Navigazione a Fondo Pagina -->
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; margin-top: 36px;">
+      <a href="definizione.html" class="home-btn">← 1. Definizione & Geometria</a>
+      <a href="matrici.html" class="btn btn-matrici" style="width: auto; padding: 12px 24px;">
+        Passa a 3. Equazione Matriciale ➔
+      </a>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      Tutti i moduli sono collegati e navigabili in locale.<br>
+      Contenuti ispirati a <em>YouMath</em> e <em>Zanichelli</em>.
+    </footer>
+
+  </main>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
